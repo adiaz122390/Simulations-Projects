@@ -40,11 +40,11 @@ def simulate(arrival_rate, fastpass_rate):
     
     # Simulation data lists
     arrival_times_fastpass = []
-    arrival_times_plebs = []
+    arrival_times_reg = []
     enter_service_times_fastpass = []
-    enter_service_times_plebs = []
+    enter_service_times_reg = []
     departure_times_fastpass = []
-    departure_times_plebs = []
+    departure_times_reg = []
 
     # Initialize FEL as an empty list
     future_event_list = []
@@ -107,7 +107,7 @@ def simulate(arrival_rate, fastpass_rate):
             if len(enter_service_times_fastpass) > len(departure_times_fastpass):
                 departure_times_fastpass.append(time)
             else:
-                departure_times_plebs.append(time)
+                departure_times_reg.append(time)
             
             # Decrement queue size
             num_in_queue -= 1
@@ -119,7 +119,7 @@ def simulate(arrival_rate, fastpass_rate):
                 if len(arrival_times_fastpass) > len(enter_service_times_fastpass):    
                     enter_service_times_fastpass.append(time)
                 else:
-                    enter_service_times_plebs.append(time)
+                    enter_service_times_reg.append(time)
                 
                 # Generate new departure event
                 service_time = rand_exp(service_rate)
@@ -133,11 +133,11 @@ def simulate(arrival_rate, fastpass_rate):
     
     # Average residence time calculated for fastpass and non-fastpass holders
     residence_times_fastpass = [departure_times_fastpass[i] - arrival_times_fastpass[i] for i in range(len(departure_times_fastpass))]
-    residence_times_plebs = [departure_times_plebs[i] - arrival_times_plebs[i] for i in range(len(departure_times_plebs))]
+    residence_times_reg = [departure_times_reg[i] - arrival_times_reg[i] for i in range(len(departure_times_reg))]
     average_residence_time_fastpass = sum(residence_times_fastpass) / len(residence_times_fastpass)
-    average_residence_time_plebs = sum(residence_times_plebs) / len(residence_times_plebs)
+    average_residence_time_reg = sum(residence_times_reg) / len(residence_times_reg)
     
-    return [average_residence_time_fastpass, average_residence_time_plebs]
+    return [average_residence_time_fastpass, average_residence_time_reg]
   
     
 
@@ -154,7 +154,7 @@ def main():
     # Initialized data lists
     xvalues = []
     fastpass_avg_residence = []
-    plebs_avg_residence = []
+    reg_avg_residence = []
     
     # Simulates queue at different fastpass rates
     for x in range (5,100,5):
@@ -162,12 +162,12 @@ def main():
         simulation = simulate(0.95, x / 100.0)
         print(simulation)
         fastpass_avg_residence.append(simulation[0])
-        plebs_avg_residence.append(simulation[1])
+        reg_avg_residence.append(simulation[1])
     
     # Plots the data
     plt.legend(handles = [green_patches, red_patches])
     plt.plot(xvalues, fastpass_avg_residence, color = 'green')
-    plt.plot(xvalues, plebs_avg_residence, color = 'red')
+    plt.plot(xvalues, reg_avg_residence, color = 'red')
     
     
 
