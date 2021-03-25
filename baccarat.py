@@ -30,8 +30,15 @@ def main():
 
 
 def shuffle():
+ 
+ """ A method that simulates shuffling a deck of cards. Since baccarat is
+     uninterested in the suit of a card, only the point values of the 
+     individual cards are represented
+    
+        input: none
+        returns: an array representing the point value of a shuffled deck of cards
+ """
     deck = []
-    # The deck will contain only the point values of the cards.
     # By Baccarat rules, there are 4 aces worth 1 point, 16 face cards and tens
     # worth 0 point, and 32 other cards worth their numerical value.
     # 8 decks are suffled together to create a shoe.
@@ -51,9 +58,15 @@ def shuffle():
     
     
     
-# Runs one round of Baccarat
+
 def simulate(deck):
     
+   """ Simulates one round of Baccarat. 
+    
+        input: array representing a deck of cards
+        returns: a string representing the outcome of a game
+   """ 
+  
     # Initialize Banker and Player
     # player_third_card is initialized to -10 to signify that it doesn't exist.
     banker = 0
